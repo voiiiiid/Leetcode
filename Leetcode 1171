@@ -1,0 +1,38 @@
+#explanation
+hum ek dummynode banayenge jo head remove hone k time p kaam aayega
+uske baad map mei har prefix sum ka info rkhenge jaise hi koi prefix sum same aaya mtlb kuch to aesa tha jisne sum kam kiya ya vo particular group beech vala 0 ho gaya
+uske baad hum start pointer ka use karenge aur while loop lagake beech vali saari entries ko map se remove kar denge aur start ko head k next p daalenge 
+kyunki humara head hi tha jisne BT diya aur humne use add nahi kiya to uska next hi safe spot hoga
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummynode = ListNode(0)
+        prefixsum = 0
+        dict = {}
+
+        dict[0] = dummynode
+        dummynode.next = head
+
+        while head is not None:
+            prefixsum += head.val
+            if prefixsum in dict:
+                start = dict[prefixsum]
+                temp = start
+                temprefixsum = prefixsum
+                while(temp != head):
+                    temp = temp.next
+                    temprefixsum += temp.val
+                    if(temp != head):
+                        dict.pop(temprefixsum)
+                start.next = head.next
+            else:
+                dict[prefixsum] = head
+
+            head = head.next
+        
+        return dummynode.next
