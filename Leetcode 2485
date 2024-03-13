@@ -1,0 +1,14 @@
+class Solution:
+    def pivotInteger(self, n: int) -> int:
+        
+        totalsum = (n*(n+1))/2
+        prefixsum = 0
+        i = 1
+        while(prefixsum < totalsum):
+            prefixsum += i
+            if(prefixsum == totalsum):
+                return i
+            totalsum -= i
+            print(prefixsum, totalsum)
+            i += 1
+        return -1
