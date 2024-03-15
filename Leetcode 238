@@ -1,0 +1,21 @@
+is approach mei hum pehle left vala product nikalenge current element se saare left product ko hum result mei store karenge
+then right side se traverse karke hum right side ka product karenge except itself
+then we will multiply both these two and return 
+we can also do this using extra space for left and right product and then use a result then return 
+but then the spcae complexity will be o(n) and using the approach below it will become o(1)
+
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        result = [1 for i in range(n)]
+
+        for i in range(1, n):
+            result[i] = result[i-1]*nums[i-1]
+        
+        rp = 1
+        for i in range(n-1, -1, -1):
+            result[i] *= rp
+            rp *= nums[i] 
+        
+        return result
