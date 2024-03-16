@@ -1,0 +1,19 @@
+class Solution:
+    def findMaxLength(self, nums: List[int]) -> int:
+        n = len(nums)
+        mp = defaultdict(int)
+        mp[0] = -1
+
+        for i in range(n):
+            if nums[i] == 0:
+                nums[i] = -1
+
+        length = 0
+        currsum = 0
+        for i in range(n):
+            currsum += nums[i]
+            if currsum in mp:
+                length = max(length, (i - mp[currsum]))
+            else:
+                mp[currsum] = i
+        return length
