@@ -1,3 +1,6 @@
+first we will create a dictionary and then store already 0 map for 0 then we will make all 0 to -1 so that it will sum to zero
+this way it would be easy to find the number of 0s and 1s to be same because they will make sum 0 if we cahnge 0 to -1
+then we just check for sum and put it in map.
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
         n = len(nums)
