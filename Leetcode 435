@@ -1,0 +1,21 @@
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        n = len(intervals)
+        intervals = sorted(intervals)
+        print(intervals)
+        prevSP = intervals[0][0]
+        prevEP = intervals[0][1]
+        count = 0
+
+        for i in range(n):
+            currSP = intervals[i][0]
+            currEP = intervals[i][1]
+            # non overlapping
+            if currSP >= prevEP:
+                prevSP = currSP
+                prevEP = currEP
+            else:
+                count += 1
+                prevSP = max(prevSP, currSP)
+                prevEP = min(prevEP, currEP)
+        return count-1
