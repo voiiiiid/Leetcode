@@ -1,0 +1,27 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        iter1 = list1
+        index = 1
+        iter2 = list2
+        while iter2.next:
+            iter2 = iter2.next
+        prev = list1
+        forth = list1
+
+        while iter1:
+            if index == a:
+                prev = iter1
+            if index == b+1:
+                forth = iter1
+            # print(prev.val, forth.val, iter1.val)
+            index += 1
+            iter1 = iter1.next
+            
+        prev.next = list2
+        iter2.next = forth.next
+        return list1
