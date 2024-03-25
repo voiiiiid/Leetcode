@@ -1,0 +1,20 @@
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        #hare and tortoise
+        slow = nums[0]
+        fast = nums[0]
+
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+
+        # detect cycle
+        while(slow != fast):
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+        
+        det = nums[0]
+        while(det != slow):
+            det = nums[det]
+            slow = nums[slow]
+
+        return slow
