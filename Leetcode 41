@@ -1,0 +1,51 @@
+#approach-1
+as we know our answer lies in 1 to len of array + 1
+since let's take n = 4
+[1,2,3,4]
+is this result is 5 but if we take any number any number like 1,2,5,6 then also 3 is the answer or 7,8,9,10 then also 1 is the answer
+there is no way answer lies outside 1 to len(arr)+1
+so we take another boolean array and traverse in original array by marking in the boolean aaray visited then check for unvisited aray and return the answer
+TC O(n)
+SC O(n) which should not be good
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+        visited = [False for i in range(n+1)]
+        for i in nums:
+            if i > 0 and i < n+1:
+                visited[i] = True
+
+        print(visited)
+        for i in range(1, n+1):
+            if visited[i] == False:
+                return i
+        return n+1
+
+
+#approach-2
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        boolean confirm1 = false;
+        for(int i = 0; i < n; i++){
+            if(nums[i] == 1) confirm1 = true;
+            if((nums[i] <= 0) || (nums[i] > n)){
+                nums[i] = 1;
+            }
+        }
+        if(!confirm1) return 1;
+        System.out.println(Arrays.toString(nums));
+        for(int i = 0; i < n; i++){
+            int num = Math.abs(nums[i]);
+            int idx = num - 1;
+            if(nums[idx] < 0) continue;
+            nums[idx] = (-1 * nums[idx]);
+        }
+        for(int i = 0; i < n; i++){
+            if(nums[i] > 0){
+                return i + 1;
+            }
+        }
+        return n+1;
+    }
+}
