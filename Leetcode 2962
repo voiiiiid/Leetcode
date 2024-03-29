@@ -1,0 +1,19 @@
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        maxele = max(nums)
+        countmax = 0
+        resultcount = 0
+        n = len(nums)
+        i = 0
+        j = 0
+        while(j < n):
+            if(nums[j] == maxele):
+                countmax += 1
+            while(countmax >= k):
+                resultcount += (n-j)
+                if(nums[i] == maxele):
+                    countmax -= 1
+                i += 1
+            j += 1
+
+        return resultcount
