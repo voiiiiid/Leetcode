@@ -1,4 +1,4 @@
-is approach mei hum pehle left vala product nikalenge current element se saare left product ko hum result mei store karenge
+Is approach mei hum pehle left vala product nikalenge current element se saare left product ko hum result mei store karenge
 then right side se traverse karke hum right side ka product karenge except itself
 then we will multiply both these two and return 
 we can also do this using extra space for left and right product and then use a result then return 
