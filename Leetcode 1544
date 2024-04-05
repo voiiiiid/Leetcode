@@ -1,0 +1,15 @@
+class Solution:
+    def makeGood(self, s: str) -> str:
+        sack = []
+        result = ""
+        sack.append(s[0])
+        for i in s[1:]:
+            sack.append(i)
+            if(len(sack) > 1):
+                if(abs(ord(sack[-2]) - ord(i)) == 32):
+                    sack.pop()
+                    sack.pop()
+                
+        for i in sack:
+            result += i
+        return result
