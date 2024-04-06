@@ -1,3 +1,4 @@
+#approach-1
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         sack = []
@@ -19,3 +20,36 @@ class Solution:
                 continue
             result += s[i]
         return result
+
+
+
+
+from left-right eliminate extra close brackets
+form right-left eliminate ectra open brackets
+#approach-2
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        opencount = 0
+        result = ""
+        for i in s:
+            if i == "(":
+                opencount += 1
+            elif i == ")":
+                if opencount > 0:
+                    opencount -= 1
+                else:
+                    continue
+            result += i
+
+        finalresult = ""
+        closedcount = 0
+        for i in result[::-1]:
+            if i == ")":
+                closedcount += 1
+            elif i == "(":
+                if closedcount > 0:
+                    closedcount -= 1
+                else:
+                    continue
+            finalresult = i + finalresult
+        return finalresult
