@@ -1,0 +1,21 @@
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        sack = []
+        removed_idx = set()
+        for i in range(len(s)):
+            if s[i] == "(":
+                sack.append(i)
+            elif s[i] == ")":
+                if sack:
+                    sack.pop()
+                else:
+                    removed_idx.add(i)
+        while(sack):
+            var = sack.pop()
+            removed_idx.add(var)
+        result = ''
+        for i in range(len(s)):
+            if i in removed_idx:
+                continue
+            result += s[i]
+        return result
