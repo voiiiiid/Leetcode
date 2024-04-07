@@ -1,0 +1,33 @@
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        N = len(s)
+        dp = [[-1 for _ in range(101)] for _ in range(101)]
+        
+        def solve(idx, open, s):
+            if(idx == N):
+                if(open == 0):
+                    return True
+                return False
+            
+            if(dp[idx][open] != -1):
+                return dp[idx][open]
+            
+            isvalid = False
+            
+            if(s[idx] == "*"):
+                isvalid |= solve(idx+1, open+1, s)
+                isvalid |= solve(idx+1, open, s)
+                if(open > 0):
+                    isvalid |= solve(idx+1, open-1, s)
+            
+            elif(s[idx] == "("):
+                isvalid = solve(idx+1, open+1, s)
+                
+            else:
+                if(open > 0):
+                    isvalid = solve(idx+1, open-1, s)
+                    
+            dp[idx][open] = isvalid
+            return dp[idx][open]
+        
+        return solve(0, 0, s)
