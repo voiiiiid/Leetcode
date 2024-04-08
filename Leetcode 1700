@@ -1,0 +1,19 @@
+class Solution:
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        
+        flag = False
+        while(True and len(students) > 0):
+            if(students[0] == sandwiches[0]):
+                students.pop(0)
+                sandwiches.pop(0)
+            else:
+                orgstudents = students.copy()
+                while((students[0] != sandwiches[0])):
+                    val = students.pop(0)
+                    students.append(val)
+                    if(orgstudents == students):
+                        flag = True
+                        break
+            if flag:
+                break
+        return len(students)
