@@ -1,0 +1,20 @@
+class Solution {
+    public int timeRequiredToBuy(int[] tickets, int k) {
+        int N = tickets.length;
+        int count = 0;
+        while(tickets[k] != 0){
+            int i = 0;
+            while(i < N){
+                if(i == k && tickets[k] == 1) {
+                    return count+1;
+                }
+                if(tickets[i] > 0){
+                    tickets[i] -= 1;
+                    count += 1;
+                }
+                i += 1;
+            }
+        }
+        return count;
+    }
+}
