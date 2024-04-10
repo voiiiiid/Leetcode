@@ -1,0 +1,21 @@
+class Solution {
+    public int[] deckRevealedIncreasing(int[] deck) {
+        int N = deck.length;
+        int[] result = new int[N];
+        int revolvingidx = 0;
+        int stoppingidx = 0;
+        Arrays.sort(deck);
+        boolean skip = false;
+        while(stoppingidx != N){
+            if(result[revolvingidx] == 0){
+                if(!skip){
+                    result[revolvingidx] = deck[stoppingidx];
+                    stoppingidx += 1;
+                }
+                skip = !skip;
+            }
+            revolvingidx = (revolvingidx + 1) % N;
+        }
+        return result;
+    }
+}
