@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
+#         hashmap for char to alphabet
+        map = {}
+        for i in range(26):
+            map[i] = chr(97 + i)
+
+        res = []
+        def solve(root, res, s):
+            if(root == None):
+                return res
+            
+            if(root.left == None and root.right == None):
+                s = map[root.val] + s
+                res.append(s)
+            
+            solve(root.left, res, s = map[root.val] + s)
+            solve(root.right, res, s = map[root.val] + s)
+            
+            return res
+        
+        solve(root, res, "")
+        
+        return min(res)
