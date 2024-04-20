@@ -1,0 +1,36 @@
+class Solution:
+    def findFarmland(self, land: List[List[int]]) -> List[List[int]]:
+        m = len(land)
+        n = len(land[0])
+        res = []
+        
+    #         dfs
+        def solve(land, i, j, temp):
+            if(i < 0 or i >= m or j < 0 or j >= n or land[i][j] == 0):
+                return
+
+            if(land[i][j] == -1):
+                return
+
+    #         mark visited
+            land[i][j] = -1
+
+    #         push elements
+            temp[2] = max(temp[2], i)
+            temp[3] = max(temp[3], j)
+    #         call recursion
+            solve(land, i+1, j, temp)
+            solve(land, i, j+1, temp)
+            return
+        
+        for i in range(m):
+            for j in range(n):
+                if(land[i][j] == 1):
+                    temp = [0 for _ in range(4)]
+                    temp[0] = i
+                    temp[1] = j
+                    solve(land, i, j, temp)
+                    # print("temp", temp)
+                    # print("land",land)
+                    res.append(temp)
+        return res
