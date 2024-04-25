@@ -13,7 +13,6 @@ jabki ideal hona chayie ki hum pehle hi choose karlein ki humein jana kiske pass
 class Solution {
     public int longestIdealString(String s, int k) {
         int N = s.length();
-        int max = 0;
         int[] res = new int[N+1];
         for(int i = 0; i < N; i++){
             res[i] = 1;
@@ -24,9 +23,9 @@ class Solution {
                 if(Math.abs((int)s.charAt(j)-(int)s.charAt(i)) <= k){
                     res[i] = Math.max(res[i], res[j]+1);
                 }
-                max = Math.max(res[i], max);
             }
         }
+        int max = Arrays.stream(res).max().getAsInt();
         return max;
     }
 }
