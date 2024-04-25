@@ -29,3 +29,30 @@ class Solution {
         return max;
     }
 }
+
+
+
+
+
+#approach 2
+class Solution {
+    public int longestIdealString(String s, int k) {
+        int N = s.length();
+        int[] res = new int[26];
+        int currmax = 0;
+        for(int i = 0; i < N; i++){
+            int idx = (int)s.charAt(i) - (int)('a');
+            int left = Math.max(0, idx-k);
+            int right = Math.min(25, idx+k);
+            int tempmax = 0;
+            for(int j = left; j <= right; j++){
+                tempmax = Math.max(res[j], tempmax);
+            }
+            res[idx] = Math.max(tempmax+1, res[idx]);
+            currmax = Math.max(currmax, res[idx]);
+            
+        }
+        System.out.println(Arrays.toString(res));
+        return currmax;
+    }
+}
