@@ -1,0 +1,41 @@
+class Solution {
+    int N;
+    int M;
+    int[][] dp;
+    public int findRotateSteps(String ring, String key) {
+        N = ring.length();
+        M = key.length();
+        dp = new int[101][101];
+        for(int i = 0; i < 101; i++){
+            for(int j = 0; j < 101; j++){
+                dp[i][j] = -1;
+            }
+        }
+        return solve(ring, key, 0, 0);
+    }
+    
+    public int solve(String ring, String key, int ringidx, int keyidx){
+        if(keyidx == M){
+            return 0;
+        }
+        
+        if(dp[ringidx][keyidx] != -1) return dp[ringidx][keyidx];
+        
+        int ans = Integer.MAX_VALUE;
+        for(int i = 0; i < N; i++){
+            if(ring.charAt(i) == key.charAt(keyidx)){
+                int steps = 1 + countsteps(ringidx, i, N);
+                int totalsteps = steps + solve(ring, key, i, keyidx+1);
+                ans = Math.min(ans, totalsteps);
+                
+            }
+        }
+        return dp[ringidx][keyidx] = ans;
+    }
+    
+    public int countsteps(int ringidx, int curridx, int N){
+        int seedha = Math.abs(curridx-ringidx);
+        int ultaseedha = N - seedha;
+        return Math.min(seedha, ultaseedha);
+    }
+}
