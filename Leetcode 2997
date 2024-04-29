@@ -1,0 +1,11 @@
+class Solution {
+    public int minOperations(int[] nums, int k) {
+//         notes
+        int total_xor = 0;
+        for(int num: nums){
+            total_xor ^= num;
+        }
+        int difference = total_xor ^ k;
+        return Integer.bitCount(difference);
+    }
+}
