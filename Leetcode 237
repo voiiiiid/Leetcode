@@ -1,0 +1,42 @@
+the only problem in this code is we don't have access to head but what we have is node which needs to be deleted here also there is a catch deleted means here is not actually deleted 
+it means just misplace it so 
+in approach 2 what we are doing is changing the val of nodes and pushing the nodes to the very end and delete
+in approach 1 just try to use a pen and paper it's bit tricky
+##approach 1
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
+
+
+
+##aproach 2
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void deleteNode(ListNode node) {
+        ListNode prev = null;
+        while(node != null && node.next != null){
+            prev = node;
+            node.val = node.next.val;
+            node = node.next;
+        }
+        prev.next = null;
+    }
+}
