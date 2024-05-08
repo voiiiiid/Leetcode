@@ -1,0 +1,32 @@
+class Solution:
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        N = len(score)
+        new_arr = []
+        for i in score:
+            new_arr.append(i)
+        score.sort()
+        result = [""]*N
+        
+        position = 1
+        for i in range(N-1, -1, -1):
+            val = score[i]
+            idx = 0
+            for i in range(N):
+                if new_arr[i] == val:
+                    idx = i
+
+            if position == 1:
+                result[idx] = "Gold Medal"
+                
+            elif position == 2:
+                result[idx] = "Silver Medal"
+                
+            elif position == 3:
+                result[idx] = "Bronze Medal"
+                
+            else:
+                result[idx] = str(position)
+                
+            position += 1
+        
+        return result
