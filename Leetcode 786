@@ -1,0 +1,21 @@
+#approach 1 brute force
+#very bad 
+class Solution:
+    def kthSmallestPrimeFraction(self, arr: List[int], k: int) -> List[int]:
+        temp = []
+        result = []
+        N = len(arr)
+        for i in range(N-1):
+            for j in range(i+1, N):
+                temp.append(arr[i]/arr[j])
+        
+        temp.sort()
+        
+        tofind = temp[k-1]
+        for i in range(N-1):
+            for j in range(i+1, N):
+                if(arr[i]/arr[j] == tofind):
+                    result.append(arr[i])
+                    result.append(arr[j])
+                    
+        return result
