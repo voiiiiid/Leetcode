@@ -19,3 +19,21 @@ class Solution:
                     result.append(arr[j])
                     
         return result
+
+#approach 2
+class Solution:
+    def kthSmallestPrimeFraction(self, arr: List[int], k: int) -> List[int]:
+        heap = []
+        N = len(arr)
+        for i in range(N-1):
+            heapq.heappush(heap, (arr[i]/arr[N-1], i, N-1))
+            
+        curr_smallest = 1
+        while(curr_smallest < k):
+            _, i, j = heapq.heappop(heap)
+            j -= 1
+            heapq.heappush(heap, (arr[i]/arr[j], i, j))
+            curr_smallest += 1
+
+        _, i, j = heapq.heappop(heap)
+        return [arr[i], arr[j]]
