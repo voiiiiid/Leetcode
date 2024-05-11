@@ -1,0 +1,74 @@
+#approach 1 normal brute force
+gives TLE
+
+
+
+class Solution:
+    def mincostToHireWorkers(self, quality: List[int], wage: List[int], k: int) -> float:
+        
+        def findsalary(workers_group, k):
+            workers_group.sort()
+            result = 0
+            for i in range(k):
+                result += workers_group[i]
+            return result
+            
+            
+        result = sys.maxsize
+        N = len(wage)
+        for manager in range(N):
+            
+            manager_ratio = wage[manager]/quality[manager]
+            workers_group = []
+            for worker in range(N):
+                expected_wage = manager_ratio * quality[worker]
+                if(expected_wage >= wage[worker]):
+                    workers_group.append(expected_wage)
+            if(len(workers_group) >= k):
+                curr_result = findsalary(workers_group, k)
+                result = min(result, curr_result)
+        
+        return result
+
+############################################################################################################
+
+#approach 2 optimal brute force
+but is worst time still behave the same and gives TLE
+
+
+class Solution:
+    def mincostToHireWorkers(self, quality: List[int], wage: List[int], k: int) -> float:
+        
+        def findsalary(workers_group, k):
+            workers_group.sort()
+            result = 0
+            for i in range(k):
+                result += workers_group[i]
+            return result
+            
+            
+        result = sys.maxsize
+        N = len(wage)
+        worker_ratio = []
+        for worker in range(N):
+            ratio = [(wage[worker]/quality[worker]), quality[worker]]
+            worker_ratio.append(ratio)
+        
+        worker_ratio.sort()
+        
+        for manager in range(k-1, N):
+            manager_ratio = worker_ratio[manager][0]
+            workers_group = []
+            for worker in range(manager+1):
+                expected_wage = manager_ratio * worker_ratio[worker][1]
+                workers_group.append(expected_wage)
+            
+            curr_result = findsalary(workers_group, k)
+            result = min(result, curr_result)
+
+        
+        return result
+
+############################################################################################################
+
+#approach 3 the perfect one
