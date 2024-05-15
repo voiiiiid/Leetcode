@@ -1,0 +1,36 @@
+class Solution {
+    int M;
+    int N;
+    int[][] dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    public int getMaximumGold(int[][] grid) {
+        M = grid.length;
+        N = grid[0].length;
+        int result = 0;
+        for(int i = 0; i < M; i++){
+            for(int j = 0; j < N; j++){
+                if(grid[i][j] != 0){
+                    result = Math.max(result, DFS(grid, i, j));
+                }
+            }
+        }
+        return result;
+    }
+    
+    public int DFS(int[][] grid, int i, int j){
+        if(i < 0 || i >= M || j < 0 || j >= N || grid[i][j] == 0){
+            return 0;
+        }
+        
+        int originalValue = grid[i][j];
+        grid[i][j] = 0;
+        int max_value = 0;
+        for(int[] a : dir){
+            int new_i = i + a[0];
+            int new_j = j + a[1];
+            max_value = Math.max(max_value, DFS(grid, new_i, new_j));
+        }
+        
+        grid[i][j] = originalValue;
+        return originalValue + max_value;
+    }
+}
