@@ -1,0 +1,80 @@
+from collections import deque
+
+class Solution:
+    def __init__(self):
+        self.directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+    
+    def check(self, distNearestThief, sf, n):
+        queue = deque()
+        visited = [[False] * n for _ in range(n)]
+        
+        queue.append((0, 0))
+        visited[0][0] = True
+        
+        if distNearestThief[0][0] < sf:
+            return False
+        
+        while queue:
+            curr_i, curr_j = queue.popleft()
+            
+            if curr_i == n - 1 and curr_j == n - 1:
+                return True
+            
+            for dir in self.directions:
+                new_i = curr_i + dir[0]
+                new_j = curr_j + dir[1]
+                
+                if 0 <= new_i < n and 0 <= new_j < n and not visited[new_i][new_j]:
+                    if distNearestThief[new_i][new_j] < sf:
+                        continue  # Reject this cell
+                    queue.append((new_i, new_j))
+                    visited[new_i][new_j] = True
+        
+        return False
+    
+    def maximumSafenessFactor(self, grid):
+        n = len(grid)
+        
+        # Step-1 Precalculation of distNearestThief - for each cell
+        distNearestThief = [[-1] * n for _ in range(n)]
+        queue = deque()
+        visited = [[False] * n for _ in range(n)]
+        
+        # Push all cells in queue where thieves are present
+        for i in range(n):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    queue.append((i, j))
+                    visited[i][j] = True
+        
+        level = 0
+        while queue:
+            size = len(queue)
+            
+            for _ in range(size):
+                curr_i, curr_j = queue.popleft()
+                distNearestThief[curr_i][curr_j] = level
+                for dir in self.directions:
+                    new_i = curr_i + dir[0]
+                    new_j = curr_j + dir[1]
+                    
+                    if 0 <= new_i < n and 0 <= new_j < n and not visited[new_i][new_j]:
+                        queue.append((new_i, new_j))
+                        visited[new_i][new_j] = True
+            
+            level += 1
+        
+        # Step-2 Apply binary search on SF
+        l, r = 0, 400
+        result = 0
+        
+        while l <= r:
+            mid_sf = l + (r - l) // 2
+            
+            if self.check(distNearestThief, mid_sf, n):
+                result = mid_sf
+                l = mid_sf + 1
+            else:
+                r = mid_sf - 1
+        
+        return result
