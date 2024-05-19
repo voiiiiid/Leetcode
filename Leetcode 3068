@@ -20,3 +20,29 @@ class Solution {
         return normalSum;
     }
 }
+
+
+
+#approach 2
+
+class Solution {
+    public long maximumValueSum(int[] nums, int k, int[][] edges) {
+        long idealSum = 0;
+        int count = 0;
+        int nuksan = Integer.MAX_VALUE;
+        for(int i : nums){
+            if((i ^ k) > i){
+                idealSum += (i ^ k);
+                count += 1;
+            }
+            else{
+                idealSum += i;
+            }
+            nuksan = Math.min(nuksan, Math.abs((i^k) - i));
+        }
+        if(count % 2 != 0){
+            idealSum -= nuksan;
+        }
+        return idealSum;
+    }
+}
