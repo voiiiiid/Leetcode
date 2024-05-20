@@ -1,0 +1,40 @@
+#approach 1 do as they ask
+find subset 
+find xor
+find sum
+class Solution {
+    int N;
+    List<List<Integer>> subsets = new ArrayList<>();
+    public int subsetXORSum(int[] nums) {
+        N = nums.length;
+        List<Integer> temp = new ArrayList<>();
+        findSubset(nums, 0, temp);
+        int sum = 0;
+        while(subsets.size() != 0){
+            List<Integer> curr = subsets.remove(subsets.size()-1);
+            if(curr.size() == 1){
+                sum += curr.remove(0);
+            }
+            if(curr.size() > 1){
+                int temp_XOR = 0;
+                while(curr.size() != 0){
+                    temp_XOR ^= curr.remove(curr.size()-1);
+                }
+                sum += temp_XOR;
+            }
+        }
+        return sum;
+    }
+    
+    public void findSubset(int[] nums, int idx, List<Integer> temp){
+        if(idx >= N){
+            subsets.add(new ArrayList<>(temp));
+            return;
+        }
+        
+        temp.add(nums[idx]);
+        findSubset(nums, idx+1, temp);
+        temp.remove(temp.size()-1);
+        findSubset(nums, idx+1, temp);
+    }
+}
