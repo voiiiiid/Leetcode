@@ -1,0 +1,41 @@
+class Solution {
+    
+    List<List<String>> res = new ArrayList<>();
+    int N;
+    public List<List<String>> partition(String s) {
+        N = s.length();
+        List<String> temp = new ArrayList<>();
+        solve(s, 0, temp);
+        return res;
+    }
+    
+    public void solve(String s, int idx, List<String> temp){
+        if(idx >= N){
+            res.add(new ArrayList<String>(temp));
+            return;
+        }
+        
+        for(int i = idx; i < N; i++){
+            String sub_s = s.substring(idx, i+1);
+            if(findPalindrome(sub_s)){
+                temp.add(sub_s);
+                solve(s, i+1, temp);
+                temp.remove(temp.size()-1);
+            }
+        }
+        
+    }
+    
+    public boolean findPalindrome(String s){
+        if(s.length() == 1) return true;
+        
+        int i = 0;
+        int j = s.length()-1;
+        while(i <= j){
+            if(s.charAt(i) != s.charAt(j)) return false;
+            i += 1;
+            j -= 1;
+        }
+        return true;
+    }
+}
