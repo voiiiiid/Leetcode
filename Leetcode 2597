@@ -1,0 +1,26 @@
+class Solution:
+    def beautifulSubsets(self, nums: List[int], k: int) -> int:
+        
+        def solve(nums, k, hashmap, idx):
+            nonlocal result
+            if(idx == len(nums)):
+                result += 1
+                return
+            
+#             not-take
+            solve(nums, k , hashmap, idx+1)
+#             take
+            
+            if(nums[idx]-k not in hashmap) and (nums[idx]+k not in hashmap):
+                hashmap[nums[idx]] += 1
+                solve(nums, k, hashmap, idx+1)
+                hashmap[nums[idx]] -= 1
+            
+            if(hashmap[nums[idx]] == 0):
+               del(hashmap[nums[idx]])
+        
+        hashmap = collections.defaultdict(int)
+        result = 0
+        solve(nums, k, hashmap, 0)
+        return result-1
+        
