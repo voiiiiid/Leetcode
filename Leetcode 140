@@ -1,0 +1,34 @@
+class Solution {
+    Set<String> hasWord = new HashSet<String>();
+    List<String> res;
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        res = new ArrayList<>();
+        for(String word: wordDict){
+            hasWord.add(word);
+        }
+        solve(0, "", s);
+        return res;
+    }
+    
+    public void solve(int idx, String curr, String s){
+        if(idx >= s.length()){
+            res.add(curr);
+            return;
+        }
+        
+        for(int j = idx; j < s.length(); j++){
+            String currWord = s.substring(idx, j+1);
+            if(hasWord.contains(currWord)){
+                String tempWord = curr;
+                if(curr.isEmpty()){
+                    curr += currWord;
+                }else{
+                    curr = curr + " " + currWord;
+                }
+                solve(j+1, curr, s);
+                
+                curr = tempWord;
+            }
+        }
+    }
+}
