@@ -1,0 +1,18 @@
+class Solution {
+    public int specialArray(int[] nums) {
+        int special_element = -1;
+        int max_element = 0;
+        for(int num: nums){
+            max_element = Math.max(max_element, num);
+        }
+        while(max_element >= 0){
+            int count = 0;
+            for(int num: nums){
+                if(num >= max_element) count += 1;
+            }
+            if(count == max_element) return max_element;
+            max_element -= 1;
+        }
+        return special_element;
+    }
+}
