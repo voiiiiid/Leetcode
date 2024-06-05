@@ -1,0 +1,30 @@
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        hashes = {}
+        
+        for i in words[0]:
+            hashes[i] = hashes.get(i, 0) + 1
+        
+        for word in words[1:]:
+            
+            new_hashes = {}
+            
+            for i in word:
+                if i in hashes:
+                    new_hashes[i] = new_hashes.get(i, 0) + 1
+            
+            for i in hashes:
+                if i not in new_hashes:
+                    hashes[i] = 0
+                else:
+                    hashes[i] = min(hashes[i], new_hashes[i])
+        
+        result = []
+        
+        for i in hashes:
+            if hashes[i] != 0:
+                while(hashes[i]!=0):
+                    result.append(i)
+                    hashes[i] -= 1
+                
+        return result
