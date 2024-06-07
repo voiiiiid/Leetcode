@@ -1,0 +1,26 @@
+class Solution:
+    def replaceWords(self, dictionary: List[str], sentence: str) -> str:
+        
+        hashset = set()
+        for i in dictionary:
+            hashset.add(i)
+        
+        li = sentence.split()
+        new_s = ""
+        for word in li:
+            sub_idx = 1
+            new_word = word
+            flag = False
+            while(sub_idx <= len(word)):
+                sub_word = word[:sub_idx]
+                if sub_word in hashset:
+                    new_word = sub_word
+                    flag = True
+                    new_s += new_word + " "
+                    break
+                sub_idx += 1
+            if(not flag):
+                new_s += new_word + " "
+        
+        
+        return new_s[:-1]
