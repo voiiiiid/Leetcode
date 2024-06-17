@@ -1,0 +1,24 @@
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        for(long a = 0; a*a <=c; a++){
+            int b = c - (int)(a*a);
+            if(bs(0, b, b)) return true;
+        }
+        return false;
+    }
+    
+    public boolean bs(long left, long right, long target){
+        
+        if(left > right) 
+            return false;
+        
+        long mid = left + (right-left)/2;
+        if(mid * mid == target) 
+            return true;
+        
+        if(mid * mid > target) 
+            return bs(left, mid-1, target);
+        
+        return bs(mid+1, right, target);
+    }
+}
