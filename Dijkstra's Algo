@@ -1,0 +1,19 @@
+import heapq
+def dijkstra(V, adj, Source):
+  pq = []
+  res = [12345] * V
+  res[Source] = 0
+  heapq.heappush(pq, (0, Source))
+
+  while(pq):
+    curr = heapq.heappop(pq)
+    currdist = curr[0]
+    currNode = curr[1]
+    for neighb in adj[currNode]:
+      thisdistance = neighb[1]
+      thisnode = neighb[0]
+      if(thisdistance + currdist < res[thisnode]):
+        res[thisnode] = thisdistance + currdist
+        heapq.heappush(pq, (thisdistance + currdist, thisnode))
+
+  return res
